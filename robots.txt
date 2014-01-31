@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://h4x3rotab.github.io/sitemap.xml 
