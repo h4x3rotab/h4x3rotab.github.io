@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-01-31T17:33:15+08:00</updated>
+  <updated>2014-01-31T17:39:09+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -12,5 +12,14 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Init]]></title>
+    <link href="http://h4x3rotab.github.io/blog/2014/01/31/init/"/>
+    <updated>2014-01-31T17:36:16+08:00</updated>
+    <id>http://h4x3rotab.github.io/blog/2014/01/31/init</id>
+    <content type="html"><![CDATA[<p>初始化</p>
+]]></content>
+  </entry>
   
 </feed>
