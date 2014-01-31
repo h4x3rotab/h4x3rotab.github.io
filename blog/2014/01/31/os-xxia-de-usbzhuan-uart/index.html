@@ -9,7 +9,9 @@
   <meta name="author" content="h4x3rotab">
 
   
-  <meta name="description" content="这里记载OS X下的USB-Serial转换方案。 硬件 适配器: 淘宝上很便宜的USB串口适配器，基于Silicon Labs的CP2012芯片，Windows和OS X下都有驱动: http://www.silabs.com/products/mcu/pages/ &hellip;">
+  <meta name="description" content="这里记载OS X下的USB-Serial转换方案。 硬件 适配器 淘宝上很便宜的USB串口适配器，基于Silicon Labs的CP2012芯片，Windows、Linux和
+OS X下都有驱动:
+http://www.silabs.com/products/mcu/pages/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,15 +98,26 @@
 <h1>硬件</h1>
 
 <ul>
-<li><p>适配器: 淘宝上很便宜的USB串口适配器，基于Silicon Labs的CP2012芯片，Windows和OS X下都有驱动: <a href="http://www.silabs.com/products/mcu/pages/usbtouartbridgevcpdrivers.aspx">http://www.silabs.com/products/mcu/pages/usbtouartbridgevcpdrivers.aspx</a></p></li>
-<li><p>下位机: GL-iNet路由器，硬件结构类似TP-Link 720N，但是PCB上面保留了UART引脚方便连接。路由器规定的波特率是115200。串口通信涉及三个必要的引脚：TX、RX、GND。连接方式如下：</p>
-
-<pre><code>  适配器RX - TX路由器
-  适配器TX - RX路由器
-  适配器GND - GND路由器
-</code></pre></li>
+<li>适配器</li>
 </ul>
 
+
+<p>淘宝上很便宜的USB串口适配器，基于Silicon Labs的CP2012芯片，Windows、Linux和
+OS X下都有驱动:
+<a href="http://www.silabs.com/products/mcu/pages/usbtouartbridgevcpdrivers.aspx">http://www.silabs.com/products/mcu/pages/usbtouartbridgevcpdrivers.aspx</a></p>
+
+<ul>
+<li>下位机</li>
+</ul>
+
+
+<p>GL-iNet路由器，硬件结构类似TP-Link 720N，但是PCB上面保留了UART引脚方便连接。
+路由器规定的波特率是115200。串口通信涉及三个必要的引脚：TX、RX、GND。连接方式如下:</p>
+
+<pre><code>    适配器RX - TX路由器
+    适配器TX - RX路由器
+    适配器GND - GND路由器
+</code></pre>
 
 <h1>软件&amp;使用方法</h1>
 
@@ -118,16 +131,23 @@
 <pre><code>    screen /dev/cu.SLAB_USBtoUART 115200
 </code></pre>
 
-<p>这里的<code>/dev/cu.SLAB_USBtoUART</code>是虚拟串口的设备文件名，确保装好了适配器的驱动，插入适配器应该就会找到它们了。电脑通过<code>/dev/cu.*</code>设备文件来连接其他串口设备，通过<code>/dev/tty.*</code>接受来其他设备的连接。</p>
+<p>这里的<code>/dev/cu.SLAB_USBtoUART</code>是虚拟串口的设备文件名，确保装好了适配器的驱动，插入适配
+器应该就会找到它们了。电脑通过<code>/dev/cu.*</code>设备文件来连接其他串口设备，通过<code>/dev/tty.*</code>
+接受来其他设备的连接。</p>
 
-<p>似乎screen的主要作用是在单窗口环境里模拟多个终端窗口，顺带可以作为虚拟串口的连接工具。但是在OS X的终端里使用screen工具，就不能利用终端的滚动条来查看历史记录了。我经常要去翻看历史记录，这一点不能接受。</p>
+<p>似乎screen的主要作用是在单窗口环境里模拟多个终端窗口，顺带可以作为虚拟串口的连接工具。
+但是在OS X的终端里使用screen工具，就不能利用终端的滚动条来查看历史记录了。我经常要去翻
+看历史记录，这一点不能接受。</p>
 
 <ul>
 <li>SecureCRT</li>
 </ul>
 
 
-<p>这是一个价格昂贵的商业软件，据说是目前OS X下最好的串口工具。软件是全图形化的，不需要设置就可以使用。目前，对我来说最重要的就是它可以通过滚动来查看历史记录，虽然界面水平远低于OS X的平均水准，但用起来还是很方便的。可以从这里下载试用版: <a href="http://www.vandyke.com/products/securecrt/">http://www.vandyke.com/products/securecrt/</a></p>
+<p>这是一个价格昂贵的商业软件，据说是目前OS X下最好的串口工具。软件是全图形化的，不需要设
+置就可以使用。目前对我来说，它最大的优势是可以通过滚动来查看历史记录，虽然界面水平远低
+于OS X的平均水准，但用起来还是很方便的。可以从这里下载试用版:
+<a href="http://www.vandyke.com/products/securecrt/">http://www.vandyke.com/products/securecrt/</a></p>
 </div>
 
 
