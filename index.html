@@ -9,9 +9,9 @@
   <meta name="author" content="h4x3rotab">
 
   
-  <meta name="description" content="这里记载OS X下的USB-Serial转换方案。 硬件 适配器 淘宝上很便宜的USB串口适配器，基于Silicon Labs的CP2012芯片，Windows、Linux和
-OS X下都有驱动:
-http://www.silabs.com/products/mcu/pages/ &hellip;">
+  <meta name="description" content="对单片机开发还不熟练，经常会写出bug，但是PCB上面总是插拔各种线比较麻烦。这次串口协议
+出了问题，发现Keil的仿真器支持模拟串口的功能，在仿真器里调试就方便多了。 打开串口面板，在内部按下的按键就会发送到单片机，不过还不知道怎么直接发送16进制数据。
+此外，虽然Keil支持串口调试， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,46 @@ http://www.silabs.com/products/mcu/pages/ &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/">用Keil调试节省时间</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-04T02:43:50+08:00" pubdate data-updated="true">Feb 4<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>对单片机开发还不熟练，经常会写出bug，但是PCB上面总是插拔各种线比较麻烦。这次串口协议
+出了问题，发现Keil的仿真器支持模拟串口的功能，在仿真器里调试就方便多了。</p>
+
+<p>打开串口面板，在内部按下的按键就会发送到单片机，不过还不知道怎么直接发送16进制数据。
+此外，虽然Keil支持串口调试，但是似乎不能模拟PWM，即使有一个逻辑分析仪面板好像也没用。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -205,6 +245,10 @@ OS X下都有驱动:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/">用Keil调试节省时间</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/01/31/os-xxia-de-usbzhuan-uart/">OS X下的USB转串口方案</a>

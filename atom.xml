@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-01-31T22:40:08+08:00</updated>
+  <updated>2014-02-04T02:49:05+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[用Keil调试节省时间]]></title>
+    <link href="http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/"/>
+    <updated>2014-02-04T02:43:50+08:00</updated>
+    <id>http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian</id>
+    <content type="html"><![CDATA[<p>对单片机开发还不熟练，经常会写出bug，但是PCB上面总是插拔各种线比较麻烦。这次串口协议
+出了问题，发现Keil的仿真器支持模拟串口的功能，在仿真器里调试就方便多了。</p>
+
+<p>打开串口面板，在内部按下的按键就会发送到单片机，不过还不知道怎么直接发送16进制数据。
+此外，虽然Keil支持串口调试，但是似乎不能模拟PWM，即使有一个逻辑分析仪面板好像也没用。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[OS X下的USB转串口方案]]></title>
