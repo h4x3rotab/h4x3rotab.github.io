@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>h4x's memo</title>
+  <title>OS X下搭建OpenWRT开发环境 - h4x's memo</title>
   <meta name="author" content="h4x3rotab">
 
   
@@ -20,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://h4x3rotab.github.io">
+  <link rel="canonical" href="http://h4x3rotab.github.io/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="h4x's memo" type="application/atom+xml">
@@ -65,15 +65,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/">OS X下搭建OpenWRT开发环境</a></h1>
+      <h1 class="entry-title">OS X下搭建OpenWRT开发环境</h1>
     
     
       <p class="meta">
@@ -96,7 +93,7 @@
   </header>
 
 
-  <div class="entry-content"><p>本文记叙了如何在OS X环境下搭建一个OpenWRT的交叉编译开发环境。主要目的并不是为了编译OpenWRT
+<div class="entry-content"><p>本文记叙了如何在OS X环境下搭建一个OpenWRT的交叉编译开发环境。主要目的并不是为了编译OpenWRT
 操作系统，而是编译一套用于开发第三方程序的SDK。本文编译的是MIPS指令集，基于uClibc的工具链，
 适用于类似TP-Link 720N的路由器。</p>
 
@@ -176,62 +173,16 @@ Toolchain。</p></li>
 </ol>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/">用Keil调试节省时间</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">h4x3rotab</span></span>
 
-<time datetime="2014-02-04T02:43:50+08:00" pubdate data-updated="true">Feb 4<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>对单片机开发还不熟练，经常会写出bug，但是PCB上面总是插拔各种线比较麻烦。这次串口协议
-出了问题，发现Keil的仿真器支持模拟串口的功能，在仿真器里调试就方便多了。</p>
-
-<p>打开串口面板，在内部按下的按键就会发送到单片机，不过还不知道怎么直接发送16进制数据。
-此外，虽然Keil支持串口调试，但是似乎不能模拟PWM，即使有一个逻辑分析仪面板好像也没用。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/31/os-xxia-de-usbzhuan-uart/">OS X下的USB转串口方案</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -243,117 +194,32 @@ Toolchain。</p></li>
   
 
 
-<time datetime="2014-01-31T17:43:33+08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>这里记载OS X下的USB-Serial转换方案。</p>
-
-<h1>硬件</h1>
-
-<ul>
-<li>适配器</li>
-</ul>
-
-
-<p>淘宝上很便宜的USB串口适配器，基于Silicon Labs的CP2012芯片，Windows、Linux和
-OS X下都有驱动:
-<a href="http://www.silabs.com/products/mcu/pages/usbtouartbridgevcpdrivers.aspx">http://www.silabs.com/products/mcu/pages/usbtouartbridgevcpdrivers.aspx</a></p>
-
-<ul>
-<li>下位机</li>
-</ul>
-
-
-<p>GL-iNet路由器，硬件结构类似TP-Link 720N，但是PCB上面保留了UART引脚方便连接。
-路由器规定的波特率是115200。串口通信涉及三个必要的引脚：TX、RX、GND。连接方式如下:</p>
-
-<pre><code>    适配器RX - TX路由器
-    适配器TX - RX路由器
-    适配器GND - GND路由器
-</code></pre>
-
-<h1>软件&amp;使用方法</h1>
-
-<ul>
-<li>screen</li>
-</ul>
-
-
-<p>OS X自带的命令行工具，可以用来连接USB虚拟串口，使用方法为：</p>
-
-<pre><code>    screen /dev/cu.SLAB_USBtoUART 115200
-</code></pre>
-
-<p>这里的<code>/dev/cu.SLAB_USBtoUART</code>是虚拟串口的设备文件名，确保装好了适配器的驱动，插入适配
-器应该就会找到它们了。电脑通过<code>/dev/cu.*</code>设备文件来连接其他串口设备，通过<code>/dev/tty.*</code>
-接受来其他设备的连接。</p>
-
-<p>似乎screen的主要作用是在单窗口环境里模拟多个终端窗口，顺带可以作为虚拟串口的连接工具。
-但是在OS X的终端里使用screen工具，就不能利用终端的滚动条来查看历史记录了。我经常要去翻
-看历史记录，这一点不能接受。</p>
-
-<ul>
-<li>SecureCRT</li>
-</ul>
-
-
-<p>这是一个价格昂贵的商业软件，据说是目前OS X下最好的串口工具。软件是全图形化的，不需要设
-置就可以使用。目前对我来说，它最大的优势是可以通过滚动来查看历史记录，虽然界面水平远低
-于OS X的平均水准，但用起来还是很方便的。可以从这里下载试用版:
-<a href="http://www.vandyke.com/products/securecrt/">http://www.vandyke.com/products/securecrt/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2014-02-05T00:36:47+08:00" pubdate data-updated="true">Feb 5<span>th</span>, 2014</time>
       
-  <header>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2014/01/31/init/">Init</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
+      <div class="sharing">
   
-
-
-<time datetime="2014-01-31T17:36:16+08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>初始化</p>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://h4x3rotab.github.io/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/" data-via="" data-counturl="http://h4x3rotab.github.io/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/" title="Previous Post: 用Keil调试节省时间">&laquo; 用Keil调试节省时间</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -385,6 +251,7 @@ OS X下都有驱动:
 
   
 </aside>
+
 
     </div>
   </div>

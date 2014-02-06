@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-02-04T02:49:05+08:00</updated>
+  <updated>2014-02-07T01:23:51+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -12,6 +12,93 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[OS X下搭建OpenWRT开发环境]]></title>
+    <link href="http://h4x3rotab.github.io/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/"/>
+    <updated>2014-02-05T00:36:47+08:00</updated>
+    <id>http://h4x3rotab.github.io/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing</id>
+    <content type="html"><![CDATA[<p>本文记叙了如何在OS X环境下搭建一个OpenWRT的交叉编译开发环境。主要目的并不是为了编译OpenWRT
+操作系统，而是编译一套用于开发第三方程序的SDK。本文编译的是MIPS指令集，基于uClibc的工具链，
+适用于类似TP-Link 720N的路由器。</p>
+
+<h1>准备</h1>
+
+<ol>
+<li>Homebrew或者类似的包管理器；</li>
+<li>一套OS X的工具链，例如Xcode的命令行工具，或者是从Homebrew安装的GNU工具链；</li>
+<li>OpenWRT源代码；</li>
+<li>10G左右的空闲硬盘空间。</li>
+</ol>
+
+
+<h1>编译SDK</h1>
+
+<ol>
+<li><p>首先需要说明的是，我只想得到一份可用的SDK，而不想要整个系统，因此依照以下步骤不见得能编译出
+一份可用的系统。其次，官方编译教程在这里：
+<a href="http://wiki.openwrt.org/zh-cn/doc/howto/buildroot.exigence">http://wiki.openwrt.org/zh-cn/doc/howto/buildroot.exigence</a>。</p></li>
+<li><p>OpenWRT只支持在大小写敏感的文件系统中编译，不分区的话，可以用<code>hdiutil</code>工具创建一个10G左右的
+dmg映像来代替：
+     <code>hdiutil create -type SPARSE -fs 'Case-sensitive Journaled HFS+' -size 10g openwrt.dmg</code>
+然后装载dmg文件，就可以在载入的卷宗中编译了。</p></li>
+<li><p>先进行环境配置</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>make defconfig
+</span><span class='line'>make prereq
+</span><span class='line'>make menuconfig</span></code></pre></td></tr></table></div></figure>
+
+
+<p>   执行这些命令的过程中，多半会提示缺少软件包，用Homebrew来安装，下面列举其中一部分。</p>
+
+<ol>
+<li><p>（软件包getopt）：<code>brew install gnu-getopt</code>，找到可执行文件，在<code>/usr/local/bin</code>下制作一个符号
+链接，名字为<code>gnugetopt</code>。</p></li>
+<li><p>（软件包fileutils等）：<code>brew install coreutils</code></p></li>
+<li><p>（软件包awk）：<code>brew install gawk</code></p></li>
+<li><p>（软件包wget）：<code>brew install wget</code></p></li>
+<li><p>顺利进入menuconfig，需要根据路由器选择Target System、Subtarget、Profile，确保选中OpenWrt SDK、
+Toolchain。</p></li>
+<li><p>保存退出menuconfig，执行<code>make</code>来编译，编译过程较长，完成后<code>staging_dir</code>中就是我们需要的工具链。</p></li>
+</ol>
+
+
+<h1>使用工具链</h1>
+
+<ol>
+<li><p>设置<code>STAGING_DIR</code>环境变量，指向SDK的<code>staging_dir</code>目录，设置<code>PATH</code>环境变量，在其中添加SDK
+工具链的bin目录：
+ <code>&lt;省略...&gt;\staging_dir\toolchain-mips_34kc_gcc-4.6-linaro_uClibc-0.9.33\bin</code></p></li>
+<li><p>准备好需要编译的源码文件，对于C程序，可以运行<code>mips-openwrt-linux-gcc</code>，对于C++程序，
+可以运行<code>mips-openwrt-linux-g++</code>，来进行交叉编译。（对于其他路由器，gcc名字会有所不同）</p></li>
+<li><p>我觉得第1步麻烦，就直接用这段脚本来代替手动修改环境变量了：</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>
+</span><span class='line'>export PATH=$PATH:`pwd`/toolchain-mips_34kc_gcc-4.6-linaro_uClibc-0.9.33.2/bin:`pwd`/host/bin
+</span><span class='line'>export STAGING_DIR=`pwd`
+</span><span class='line'>bash</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>用任何手段（例如scp）把编译出的程序发送到路由器，直接运行即可。如果希望制作ipkg包，可能还需要
+更深入的研究OpenWrt SDK。</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用Keil调试节省时间]]></title>
