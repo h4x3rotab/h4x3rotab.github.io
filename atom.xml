@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-02-07T01:23:51+08:00</updated>
+  <updated>2014-02-07T01:25:37+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -92,11 +92,8 @@ Toolchain。</p></li>
 </span><span class='line'>bash</span></code></pre></td></tr></table></div></figure>
 
 
-<ol>
-<li>用任何手段（例如scp）把编译出的程序发送到路由器，直接运行即可。如果希望制作ipkg包，可能还需要
-更深入的研究OpenWrt SDK。</li>
-</ol>
-
+<p>最后用任何手段（例如scp）把编译出的程序发送到路由器，直接运行即可。如果希望制作ipkg包，可能还需要
+更深入的研究OpenWrt SDK。</p>
 ]]></content>
   </entry>
   
