@@ -1,24 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[h4x's memo]]></title>
-  <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
-  <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-02-25T00:49:12+08:00</updated>
-  <id>http://h4x3rotab.github.io/</id>
-  <author>
-    <name><![CDATA[h4x3rotab]]></name>
-    <email><![CDATA[h4x3rotab@gmail.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Xcode下创建OpenWRT交叉编译项目 - h4x's memo</title>
+  <meta name="author" content="h4x3rotab">
 
   
-  <entry>
-    <title type="html"><![CDATA[Xcode下创建OpenWRT交叉编译项目]]></title>
-    <link href="http://h4x3rotab.github.io/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/"/>
-    <updated>2014-02-25T00:08:11+08:00</updated>
-    <id>http://h4x3rotab.github.io/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu</id>
-    <content type="html"><![CDATA[<p>Xcode版本5.0.2，编译环境是OpenWRT SDK（mips-openwrt-linux-uclibc）。利用Xcoce的
+  <meta name="description" content="Xcode版本5.0.2，编译环境是OpenWRT SDK（mips-openwrt-linux-uclibc）。利用Xcoce的
+“外部编译系统（External build system）”来实现在IDE中开发OpenWRT项目。 Xcode交叉编译配置 新项目和旧项目中都可以， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://h4x3rotab.github.io/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="h4x's memo" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39767786-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">h4x's memo</a></h1>
+  
+    <h2>某不科学的备忘录</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:h4x3rotab.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Xcode下创建OpenWRT交叉编译项目</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-25T00:08:11+08:00" pubdate data-updated="true">Feb 25<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Xcode版本5.0.2，编译环境是OpenWRT SDK（mips-openwrt-linux-uclibc）。利用Xcoce的
 “外部编译系统（External build system）”来实现在IDE中开发OpenWRT项目。</p>
 
 <h1>Xcode交叉编译配置</h1>
@@ -150,174 +236,149 @@ Makefile文件，就可以像普通项目一样使用IDE了。</p>
 
 
 <p>至此，Xcode下的交叉编译环境已经完成。</p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[OS X下搭建OpenWRT开发环境]]></title>
-    <link href="http://h4x3rotab.github.io/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/"/>
-    <updated>2014-02-05T00:36:47+08:00</updated>
-    <id>http://h4x3rotab.github.io/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing</id>
-    <content type="html"><![CDATA[<p>本文记叙了如何在OS X环境下搭建一个OpenWRT的交叉编译开发环境。主要目的并不是为了编译OpenWRT
-操作系统，而是编译一套用于开发第三方程序的SDK。本文编译的是MIPS指令集，基于uClibc的工具链，
-适用于类似TP-Link 720N的路由器。</p>
 
-<h1>准备</h1>
+<span class="byline author vcard">Posted by <span class="fn">h4x3rotab</span></span>
 
-<ol>
-<li>Homebrew或者类似的包管理器；</li>
-<li>一套OS X的工具链，例如Xcode的命令行工具，或者是从Homebrew安装的GNU工具链；</li>
-<li>OpenWRT源代码；</li>
-<li>10G左右的空闲硬盘空间。</li>
-</ol>
+      
 
 
-<h1>编译SDK</h1>
-
-<ol>
-<li><p>首先需要说明的是，我只想得到一份可用的SDK，而不想要整个系统，因此依照以下步骤不见得能编译出
-一份可用的系统。其次，官方编译教程在这里：
-<a href="http://wiki.openwrt.org/zh-cn/doc/howto/buildroot.exigence">http://wiki.openwrt.org/zh-cn/doc/howto/buildroot.exigence</a>。</p></li>
-<li><p>OpenWRT只支持在大小写敏感的文件系统中编译，不分区的话，可以用<code>hdiutil</code>工具创建一个10G左右的
-dmg映像来代替：
-     <code>hdiutil create -type SPARSE -fs 'Case-sensitive Journaled HFS+' -size 10g openwrt.dmg</code>
-然后装载dmg文件，就可以在载入的卷宗中编译了。</p></li>
-<li><p>先进行环境配置</p>
-
-<pre><code> make defconfig
- make prereq
- make menuconfig
-</code></pre>
-
-<p>执行这些命令的过程中，多半会提示缺少软件包，用Homebrew来安装，下面列举其中一部分。</p>
-
-<ol>
-<li><p>（软件包getopt）：<code>brew install gnu-getopt</code>，找到可执行文件，在<code>/usr/local/bin</code>下制作一个符号
-链接，名字为<code>gnugetopt</code>。</p></li>
-<li><p>（软件包fileutils等）：<code>brew install coreutils</code></p></li>
-<li><p>（软件包awk）：<code>brew install gawk</code></p></li>
-<li><p>（软件包wget）：<code>brew install wget</code></p></li>
-</ol>
-</li>
-<li><p>顺利进入menuconfig，需要根据路由器选择Target System、Subtarget、Profile，确保选中OpenWrt SDK、
-Toolchain。</p></li>
-<li><p>保存退出menuconfig，执行<code>make</code>来编译，编译过程较长，完成后<code>staging_dir</code>中就是我们需要的工具链。</p></li>
-</ol>
 
 
-<h1>使用工具链</h1>
-
-<ol>
-<li><p>设置<code>STAGING_DIR</code>环境变量，指向SDK的<code>staging_dir</code>目录，设置<code>PATH</code>环境变量，在其中添加SDK
-工具链的bin目录：
- <code>&lt;省略...&gt;\staging_dir\toolchain-mips_34kc_gcc-4.6-linaro_uClibc-0.9.33\bin</code></p></li>
-<li><p>准备好需要编译的源码文件，对于C程序，可以运行<code>mips-openwrt-linux-gcc</code>，对于C++程序，
-可以运行<code>mips-openwrt-linux-g++</code>，来进行交叉编译。（对于其他路由器，gcc名字会有所不同）</p></li>
-<li><p>我觉得第1步麻烦，就直接用这段脚本来代替手动修改环境变量了：</p></li>
-</ol>
 
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>    <span class="c">#!/bin/bash</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/toolchain-mips_34kc_gcc-4.6-linaro_uClibc-0.9.33.2/bin:<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/host/bin
-</span><span class='line'>    <span class="nb">export </span><span class="nv">STAGING_DIR</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
-</span><span class='line'>    bash
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>最后用任何手段（例如scp）把编译出的程序发送到路由器，直接运行即可。如果希望制作ipkg包，可能还需要
-更深入的研究OpenWrt SDK。</p>
-]]></content>
-  </entry>
   
-  <entry>
-    <title type="html"><![CDATA[用Keil调试节省时间]]></title>
-    <link href="http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/"/>
-    <updated>2014-02-04T02:43:50+08:00</updated>
-    <id>http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian</id>
-    <content type="html"><![CDATA[<p>对单片机开发还不熟练，经常会写出bug，但是PCB上面总是插拔各种线比较麻烦。这次串口协议
-出了问题，发现Keil的仿真器支持模拟串口的功能，在仿真器里调试就方便多了。</p>
 
-<p>打开串口面板，在内部按下的按键就会发送到单片机，不过还不知道怎么直接发送16进制数据。
-此外，虽然Keil支持串口调试，但是似乎不能模拟PWM，即使有一个逻辑分析仪面板好像也没用。</p>
-]]></content>
-  </entry>
+
+<time datetime="2014-02-25T00:08:11+08:00" pubdate data-updated="true">Feb 25<span>th</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <entry>
-    <title type="html"><![CDATA[OS X下的USB转串口方案]]></title>
-    <link href="http://h4x3rotab.github.io/blog/2014/01/31/os-xxia-de-usbzhuan-uart/"/>
-    <updated>2014-01-31T17:43:33+08:00</updated>
-    <id>http://h4x3rotab.github.io/blog/2014/01/31/os-xxia-de-usbzhuan-uart</id>
-    <content type="html"><![CDATA[<p>这里记载OS X下的USB-Serial转换方案。</p>
-
-<h1>硬件</h1>
-
-<ul>
-<li>适配器</li>
-</ul>
-
-
-<p>淘宝上很便宜的USB串口适配器，基于Silicon Labs的CP2012芯片，Windows、Linux和
-OS X下都有驱动:
-<a href="http://www.silabs.com/products/mcu/pages/usbtouartbridgevcpdrivers.aspx">http://www.silabs.com/products/mcu/pages/usbtouartbridgevcpdrivers.aspx</a></p>
-
-<ul>
-<li>下位机</li>
-</ul>
-
-
-<p>GL-iNet路由器，硬件结构类似TP-Link 720N，但是PCB上面保留了UART引脚方便连接。
-路由器规定的波特率是115200。串口通信涉及三个必要的引脚：TX、RX、GND。连接方式如下:</p>
-
-<pre><code>    适配器RX - TX路由器
-    适配器TX - RX路由器
-    适配器GND - GND路由器
-</code></pre>
-
-<h1>软件&amp;使用方法</h1>
-
-<ul>
-<li>screen</li>
-</ul>
-
-
-<p>OS X自带的命令行工具，可以用来连接USB虚拟串口，使用方法为：</p>
-
-<pre><code>    screen /dev/cu.SLAB_USBtoUART 115200
-</code></pre>
-
-<p>这里的<code>/dev/cu.SLAB_USBtoUART</code>是虚拟串口的设备文件名，确保装好了适配器的驱动，插入适配
-器应该就会找到它们了。电脑通过<code>/dev/cu.*</code>设备文件来连接其他串口设备，通过<code>/dev/tty.*</code>
-接受来其他设备的连接。</p>
-
-<p>似乎screen的主要作用是在单窗口环境里模拟多个终端窗口，顺带可以作为虚拟串口的连接工具。
-但是在OS X的终端里使用screen工具，就不能利用终端的滚动条来查看历史记录了。我经常要去翻
-看历史记录，这一点不能接受。</p>
-
-<ul>
-<li>SecureCRT</li>
-</ul>
-
-
-<p>这是一个价格昂贵的商业软件，据说是目前OS X下最好的串口工具。软件是全图形化的，不需要设
-置就可以使用。目前对我来说，它最大的优势是可以通过滚动来查看历史记录，虽然界面水平远低
-于OS X的平均水准，但用起来还是很方便的。可以从这里下载试用版:
-<a href="http://www.vandyke.com/products/securecrt/">http://www.vandyke.com/products/securecrt/</a></p>
-]]></content>
-  </entry>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://h4x3rotab.github.io/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/" data-via="" data-counturl="http://h4x3rotab.github.io/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/" >Tweet</a>
   
-  <entry>
-    <title type="html"><![CDATA[Init]]></title>
-    <link href="http://h4x3rotab.github.io/blog/2014/01/31/init/"/>
-    <updated>2014-01-31T17:36:16+08:00</updated>
-    <id>http://h4x3rotab.github.io/blog/2014/01/31/init</id>
-    <content type="html"><![CDATA[<p>初始化</p>
-]]></content>
-  </entry>
   
-</feed>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/" title="Previous Post: OS X下搭建OpenWRT开发环境">&laquo; OS X下搭建OpenWRT开发环境</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/">Xcode下创建OpenWRT交叉编译项目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/">OS X下搭建OpenWRT开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/">用Keil调试节省时间</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/31/os-xxia-de-usbzhuan-uart/">OS X下的USB转串口方案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/31/init/">Init</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/h4x3rotab">@h4x3rotab</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'h4x3rotab',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - h4x3rotab -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

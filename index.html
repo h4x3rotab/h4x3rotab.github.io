@@ -9,9 +9,8 @@
   <meta name="author" content="h4x3rotab">
 
   
-  <meta name="description" content="本文记叙了如何在OS X环境下搭建一个OpenWRT的交叉编译开发环境。主要目的并不是为了编译OpenWRT
-操作系统，而是编译一套用于开发第三方程序的SDK。本文编译的是MIPS指令集，基于uClibc的工具链，
-适用于类似TP-Link 720N的路由器。 准备 &hellip;">
+  <meta name="description" content="Xcode版本5.0.2，编译环境是OpenWRT SDK（mips-openwrt-linux-uclibc）。利用Xcoce的
+“外部编译系统（External build system）”来实现在IDE中开发OpenWRT项目。 Xcode交叉编译配置 新项目和旧项目中都可以， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +84,173 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/">Xcode下创建OpenWRT交叉编译项目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-25T00:08:11+08:00" pubdate data-updated="true">Feb 25<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Xcode版本5.0.2，编译环境是OpenWRT SDK（mips-openwrt-linux-uclibc）。利用Xcoce的
+“外部编译系统（External build system）”来实现在IDE中开发OpenWRT项目。</p>
+
+<h1>Xcode交叉编译配置</h1>
+
+<p>新项目和旧项目中都可以，在项目中创建目标“外部编译系统”（OS X &ndash; Other &ndash; External
+Build System），选择使用编译工具为“/bin/make”。</p>
+
+<p>没错，需要使用Makefile系统来实现交叉编译。也许cmake也是可行的，但不做讨论。所以
+后文会给出一个简单的交叉编译Makefile教程。</p>
+
+<p>这么做已经足够，但是Xcode的代码补全功能只对它支持的编译目标做处理，所以还需要
+一点小技巧。</p>
+
+<h1>修复代码补全失效</h1>
+
+<p>方法来自于StackOverflow上的<a href="http://stackoverflow.com/questions/8726869/xcode-4-external-build-system-code-completion">这个页面</a>。基本思路是，创建一个普通的“命令行”
+目标（OS X &ndash; Application &ndash; Command Line Tool），名字任意，在其编译文件列表中添加
+所有的代码文件。这就强制Xcode解析所有的代码文件，从而启用代码完成功能。</p>
+
+<p>快，糙，猛。</p>
+
+<p>如果觉得新目标生成的几个文件比较烦人，还可以删除掉编译阶段中的“复制”阶段，然后就
+可以清理好项目目录了。</p>
+
+<h1>Makefile编写</h1>
+
+<p>Xcode对外部编译系统的支持，实质上是通过Makefile实现的。只要在项目目录中写好了
+Makefile文件，就可以像普通项目一样使用IDE了。</p>
+
+<p>所以说，可以参考任何一篇Makefile教程来编写这个文件。要实现交叉编译，就需要编写
+支持自订工具链的Makefile。</p>
+
+<p>下面是一个Makefile文件的模板，它会编译目录下所有的c与cpp文件。可惜的是我找不到
+它的来源了，下面的是经过我修改后可以用于OpenWRT SDK工具链的版本。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='makefile'><span class='line'><span class="nv">SDK</span> <span class="o">:=</span> /Volumes/OpenWrt/trunk/staging_dir
+</span><span class='line'><span class="nv">SDKBIN</span> <span class="o">:=</span> <span class="k">$(</span>SDK<span class="k">)</span>/toolchain-mips_34kc_gcc-4.6-linaro_uClibc-0.9.33.2/bin
+</span><span class='line'><span class="k">export </span><span class="nv">STAGING_DIR</span> <span class="o">:=</span> <span class="k">$(</span>SDK<span class="k">)</span>
+</span><span class='line'><span class="k">export </span><span class="nv">PATH</span> <span class="o">:=</span> <span class="k">$(</span>SDKBIN<span class="k">)</span>:<span class="k">$(</span>SDK<span class="k">)</span>/host/bin
+</span><span class='line'>
+</span><span class='line'><span class="nv">AR</span> <span class="o">:=</span> <span class="k">$(</span>SDKBIN<span class="k">)</span>/mips-openwrt-linux-uclibc-ar
+</span><span class='line'><span class="nv">AS</span> <span class="o">:=</span> <span class="k">$(</span>SDKBIN<span class="k">)</span>/mips-openwrt-linux-uclibc-as
+</span><span class='line'><span class="nv">CC</span> <span class="o">:=</span> <span class="k">$(</span>SDKBIN<span class="k">)</span>/mips-openwrt-linux-uclibc-gcc
+</span><span class='line'><span class="nv">CXX</span> <span class="o">:=</span> <span class="k">$(</span>SDKBIN<span class="k">)</span>/mips-openwrt-linux-uclibc-g++
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nv">program_NAME</span> <span class="o">:=</span> tubed
+</span><span class='line'>
+</span><span class='line'><span class="nv">program_C_SRCS</span> <span class="o">:=</span> <span class="k">$(</span>wildcard *.c<span class="k">)</span>
+</span><span class='line'><span class="nv">program_CXX_SRCS</span> <span class="o">:=</span> <span class="k">$(</span>wildcard *.cpp<span class="k">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">program_C_OBJS</span> <span class="o">:=</span> <span class="k">${</span><span class="nv">program_C_SRCS</span><span class="p">:.c=.o</span><span class="k">}</span>
+</span><span class='line'><span class="nv">program_CXX_OBJS</span> <span class="o">:=</span> <span class="k">${</span><span class="nv">program_CXX_SRCS</span><span class="p">:.cpp=.o</span><span class="k">}</span>
+</span><span class='line'><span class="nv">program_OBJS</span> <span class="o">:=</span> <span class="k">$(</span>program_C_OBJS<span class="k">)</span> <span class="k">$(</span>program_CXX_OBJS<span class="k">)</span>
+</span><span class='line'><span class="nv">program_INCLUDE_DIRS</span> <span class="o">:=</span>
+</span><span class='line'><span class="nv">program_LIBRARY_DIRS</span> <span class="o">:=</span>
+</span><span class='line'><span class="nv">program_LIBRARIES</span> <span class="o">:=</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">CFLAGS</span> <span class="o">+=</span> -std<span class="o">=</span><span class="k">$(</span>GCC_C_LANGUAGE_STANDARD<span class="k">)</span>
+</span><span class='line'><span class="nv">CPPFLAGS</span> <span class="o">+=</span> <span class="k">$(</span>foreach includedir,<span class="k">$(</span>program_INCLUDE_DIRS<span class="k">)</span>,-I<span class="k">$(</span>includedir<span class="k">))</span>
+</span><span class='line'><span class="nv">LDFLAGS</span> <span class="o">+=</span> <span class="k">$(</span>foreach librarydir,<span class="k">$(</span>program_LIBRARY_DIRS<span class="k">)</span>,-L<span class="k">$(</span>librarydir<span class="k">))</span>
+</span><span class='line'><span class="nv">LDFLAGS</span> <span class="o">+=</span> <span class="k">$(</span>foreach library,<span class="k">$(</span>program_LIBRARIES<span class="k">)</span>,-l<span class="k">$(</span>library<span class="k">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">.PHONY</span><span class="o">:</span> <span class="m">all clean distclean </span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">all</span><span class="o">:</span> <span class="m">$(program_NAME)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">$(</span>program_NAME<span class="k">)</span>: <span class="k">$(</span>program_OBJS<span class="k">)</span>
+</span><span class='line'>  <span class="k">$(</span>LINK.cc<span class="k">)</span> <span class="k">$(</span>program_OBJS<span class="k">)</span> -o <span class="k">$(</span>program_NAME<span class="k">)</span>
+</span><span class='line'>
+</span><span class='line'>clean:
+</span><span class='line'>  @- <span class="k">$(</span>RM<span class="k">)</span> <span class="k">$(</span>program_NAME<span class="k">)</span>
+</span><span class='line'>  @- <span class="k">$(</span>RM<span class="k">)</span> <span class="k">$(</span>program_OBJS<span class="k">)</span>
+</span><span class='line'>
+</span><span class='line'>distclean: clean
+</span><span class='line'>
+</span><span class='line'><span class="cp">define OBJECT_DEPENDS_ON_CORRESPONDING_HEADER</span>
+</span><span class='line'>  <span class="k">$(</span>1<span class="k">)</span> : <span class="k">${</span><span class="nv">1</span><span class="p">:.o=.h</span><span class="k">}</span>
+</span><span class='line'><span class="cp">endef</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">$(</span>foreach object_file,<span class="k">$(</span>program_OBJS<span class="k">)</span>,<span class="k">$(</span><span class="nb">eval</span> <span class="k">$(</span>call OBJECT_DEPENDS_ON_CORRESPONDING_HEADER,<span class="k">$(</span>object_file<span class="k">))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>至此，Xcode下的交叉编译环境已经完成。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/">OS X下搭建OpenWRT开发环境</a></h1>
     
     
@@ -134,8 +300,7 @@ dmg映像来代替：
 然后装载dmg文件，就可以在载入的卷宗中编译了。</p></li>
 <li><p>先进行环境配置</p>
 
-<pre><code> &lt;!-- language: bash --&gt;
- make defconfig
+<pre><code> make defconfig
  make prereq
  make menuconfig
 </code></pre>
@@ -367,6 +532,10 @@ OS X下都有驱动:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/">Xcode下创建OpenWRT交叉编译项目</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/">OS X下搭建OpenWRT开发环境</a>
