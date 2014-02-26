@@ -128,18 +128,18 @@
 </code></pre></li>
 </ol>
 </li>
-<li><p>计算机端</p></li>
-<li><p>根据OpenWRT SDK的位置设置环境变量</p>
+<li><p>计算机端</p>
 
 <ol>
-<li><p>进入被调试文件的所在目录，这是为了向GDB提供程序的调试信息</p></li>
-<li><p>指定被调试的程序文件，启动gdb</p>
+<li><p> 根据OpenWRT SDK的位置设置环境变量</p></li>
+<li><p> 进入被调试文件的所在目录，这是为了向GDB提供程序的调试信息</p></li>
+<li><p> 指定被调试的程序文件，启动gdb</p>
 
-<pre><code> mips-openwrt-linux-gdb tubed
+<pre><code>  mips-openwrt-linux-gdb tubed
 </code></pre></li>
-<li><p>在GDB中连接远程调试器</p>
+<li><p> 在GDB中连接远程调试器</p>
 
-<pre><code> target remote 192.168.8.1:4455
+<pre><code>  target remote 192.168.8.1:4455
 </code></pre></li>
 </ol>
 </li>
