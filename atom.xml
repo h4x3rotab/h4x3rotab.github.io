@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-02-25T00:49:12+08:00</updated>
+  <updated>2014-02-27T02:36:27+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[OpenWRT下的GDB远程调试]]></title>
+    <link href="http://h4x3rotab.github.io/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi/"/>
+    <updated>2014-02-27T02:17:35+08:00</updated>
+    <id>http://h4x3rotab.github.io/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi</id>
+    <content type="html"><![CDATA[<p>编写的程序部署到OpenWRT上出错，打日志是一个好办法，但是今天遇到的情况，日志也不能
+显示出正确的程序流程，实在诡异，因此决定尝试调试器。</p>
+
+<p>路由器中的存储空间十分有限，OpenWRT的包管理器opkg提供的GDB占用大约1.5MB空间。路由器
+本身有8M的存储空间，目前只剩200KB了，GDB的大小不能接受。相比之下，GDBServer的大小
+不到100KB，这是可以接受的。</p>
+
+<p>下面是使用GDBServer远程调试的方法：</p>
+
+<ul>
+<li><p>路由器端</p>
+
+<ol>
+<li><p> 安装GDBServer</p>
+
+<pre><code>  opkg install gdbserver
+</code></pre></li>
+<li><p> 进入目录，运行GDBServer，监听到网络端口</p>
+
+<pre><code>  gdbserver 192.168.8.1:4455 tubed
+</code></pre></li>
+</ol>
+</li>
+<li><p>计算机端</p></li>
+<li><p>根据OpenWRT SDK的位置设置环境变量</p>
+
+<ol>
+<li><p>进入被调试文件的所在目录，这是为了向GDB提供程序的调试信息</p></li>
+<li><p>指定被调试的程序文件，启动gdb</p>
+
+<pre><code> mips-openwrt-linux-gdb tubed
+</code></pre></li>
+<li><p>在GDB中连接远程调试器</p>
+
+<pre><code> target remote 192.168.8.1:4455
+</code></pre></li>
+</ol>
+</li>
+</ul>
+
+
+<p>如果连接成功，则此时就可以像平常一样使用GDB来调试程序了，不过调试目标是位于路由器的
+程序。使用这个方法可以很轻易的定位到程序错误的位置。毕竟是动态调试。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Xcode下创建OpenWRT交叉编译项目]]></title>

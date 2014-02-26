@@ -9,8 +9,9 @@
   <meta name="author" content="h4x3rotab">
 
   
-  <meta name="description" content="Xcode版本5.0.2，编译环境是OpenWRT SDK（mips-openwrt-linux-uclibc）。利用Xcoce的
-“外部编译系统（External build system）”来实现在IDE中开发OpenWRT项目。 Xcode交叉编译配置 新项目和旧项目中都可以， &hellip;">
+  <meta name="description" content="编写的程序部署到OpenWRT上出错，打日志是一个好办法，但是今天遇到的情况，日志也不能
+显示出正确的程序流程，实在诡异，因此决定尝试调试器。 路由器中的存储空间十分有限，OpenWRT的包管理器opkg提供的GDB占用大约1.5MB空间。路由器
+本身有8M的存储空间，目前只剩200KB了， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +79,84 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi/">OpenWRT下的GDB远程调试</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-27T02:17:35+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>编写的程序部署到OpenWRT上出错，打日志是一个好办法，但是今天遇到的情况，日志也不能
+显示出正确的程序流程，实在诡异，因此决定尝试调试器。</p>
+
+<p>路由器中的存储空间十分有限，OpenWRT的包管理器opkg提供的GDB占用大约1.5MB空间。路由器
+本身有8M的存储空间，目前只剩200KB了，GDB的大小不能接受。相比之下，GDBServer的大小
+不到100KB，这是可以接受的。</p>
+
+<p>下面是使用GDBServer远程调试的方法：</p>
+
+<ul>
+<li><p>路由器端</p>
+
+<ol>
+<li><p> 安装GDBServer</p>
+
+<pre><code>  opkg install gdbserver
+</code></pre></li>
+<li><p> 进入目录，运行GDBServer，监听到网络端口</p>
+
+<pre><code>  gdbserver 192.168.8.1:4455 tubed
+</code></pre></li>
+</ol>
+</li>
+<li><p>计算机端</p></li>
+<li><p>根据OpenWRT SDK的位置设置环境变量</p>
+
+<ol>
+<li><p>进入被调试文件的所在目录，这是为了向GDB提供程序的调试信息</p></li>
+<li><p>指定被调试的程序文件，启动gdb</p>
+
+<pre><code> mips-openwrt-linux-gdb tubed
+</code></pre></li>
+<li><p>在GDB中连接远程调试器</p>
+
+<pre><code> target remote 192.168.8.1:4455
+</code></pre></li>
+</ol>
+</li>
+</ul>
+
+
+<p>如果连接成功，则此时就可以像平常一样使用GDB来调试程序了，不过调试目标是位于路由器的
+程序。使用这个方法可以很轻易的定位到程序错误的位置。毕竟是动态调试。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -534,6 +613,10 @@ OS X下都有驱动:
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi/">OpenWRT下的GDB远程调试</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/">Xcode下创建OpenWRT交叉编译项目</a>
       </li>
     
@@ -547,10 +630,6 @@ OS X下都有驱动:
     
       <li class="post">
         <a href="/blog/2014/01/31/os-xxia-de-usbzhuan-uart/">OS X下的USB转串口方案</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/31/init/">Init</a>
       </li>
     
   </ul>
