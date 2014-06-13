@@ -9,9 +9,13 @@
   <meta name="author" content="h4x3rotab">
 
   
-  <meta name="description" content="编写的程序部署到OpenWRT上出错，打日志是一个好办法，但是今天遇到的情况，日志也不能
-显示出正确的程序流程，实在诡异，因此决定尝试调试器。 路由器中的存储空间十分有限，OpenWRT的包管理器opkg提供的GDB占用大约1.5MB空间。路由器
-本身有8M的存储空间，目前只剩200KB了， &hellip;">
+  <meta name="description" content="LLVM提供了编译器基础设施，根据语法树可以方便的生成LLVM IR，然后编译成可执行文件。 然而在尝试创建一个函数时，发现无法获取函数参数值。代码如下： 1
+2
+3
+4
+5
+6
+auto t_fib = FunctionType::get(t_int, t_fibargs, false); &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +82,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/14/you-llvmban-ben-yin-fa-de-gui-yi-wen-ti/">由LLVM版本引发的诡异问题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-14T04:50:34+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>LLVM提供了编译器基础设施，根据语法树可以方便的生成LLVM IR，然后编译成可执行文件。</p>
+
+<p>然而在尝试创建一个函数时，发现无法获取函数参数值。代码如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">auto</span> <span class="n">t_fib</span> <span class="o">=</span> <span class="n">FunctionType</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">t_int</span><span class="p">,</span> <span class="n">t_fibargs</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span><span class='line'><span class="k">auto</span> <span class="n">fib</span> <span class="o">=</span> <span class="n">Function</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">t_fib</span><span class="p">,</span> <span class="n">Function</span><span class="o">::</span><span class="n">ExternalLinkage</span><span class="p">,</span> <span class="s">&quot;func_fib&quot;</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">auto</span> <span class="n">argsfib</span> <span class="o">=</span> <span class="n">fib</span><span class="o">-&gt;</span><span class="n">arg_begin</span><span class="p">();</span>
+</span><span class='line'><span class="k">auto</span> <span class="n">n</span> <span class="o">=</span> <span class="n">argsfib</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="n">n</span><span class="o">-&gt;</span><span class="n">setName</span><span class="p">(</span><span class="s">&quot;n&quot;</span><span class="p">);</span>    <span class="c1">// n == NULL</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此段代码非常简单，首先创建一个函数原型<code>int fib(int n)</code>，使用原型创建实例，然后在
+实例中获取第一个参数<code>n</code>。然而执行到注释的语句时会出现空指针错误。</p>
+
+<p>在此处浪费了许多时间，最终发现是由于LLVM版本错乱而引发的问题。我的开发环境是OX X、
+Xcode。此前为了使用iPython安装了Anaconda，它自带了一份LLVM 3.3，并且设置了PATH
+环境变量；而现在换成从Homebrew安装的LLVM 3.4.1，一切就正常了。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -615,6 +679,10 @@ OS X下都有驱动:
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/14/you-llvmban-ben-yin-fa-de-gui-yi-wen-ti/">由LLVM版本引发的诡异问题</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi/">OpenWRT下的GDB远程调试</a>
       </li>
     
@@ -628,10 +696,6 @@ OS X下都有驱动:
     
       <li class="post">
         <a href="/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/">用Keil调试节省时间</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/31/os-xxia-de-usbzhuan-uart/">OS X下的USB转串口方案</a>
       </li>
     
   </ul>

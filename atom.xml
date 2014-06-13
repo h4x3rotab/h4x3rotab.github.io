@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-03-04T00:35:05+08:00</updated>
+  <updated>2014-06-14T05:08:25+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[由LLVM版本引发的诡异问题]]></title>
+    <link href="http://h4x3rotab.github.io/blog/2014/06/14/you-llvmban-ben-yin-fa-de-gui-yi-wen-ti/"/>
+    <updated>2014-06-14T04:50:34+08:00</updated>
+    <id>http://h4x3rotab.github.io/blog/2014/06/14/you-llvmban-ben-yin-fa-de-gui-yi-wen-ti</id>
+    <content type="html"><![CDATA[<p>LLVM提供了编译器基础设施，根据语法树可以方便的生成LLVM IR，然后编译成可执行文件。</p>
+
+<p>然而在尝试创建一个函数时，发现无法获取函数参数值。代码如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">auto</span> <span class="n">t_fib</span> <span class="o">=</span> <span class="n">FunctionType</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">t_int</span><span class="p">,</span> <span class="n">t_fibargs</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span><span class='line'><span class="k">auto</span> <span class="n">fib</span> <span class="o">=</span> <span class="n">Function</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">t_fib</span><span class="p">,</span> <span class="n">Function</span><span class="o">::</span><span class="n">ExternalLinkage</span><span class="p">,</span> <span class="s">&quot;func_fib&quot;</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">auto</span> <span class="n">argsfib</span> <span class="o">=</span> <span class="n">fib</span><span class="o">-&gt;</span><span class="n">arg_begin</span><span class="p">();</span>
+</span><span class='line'><span class="k">auto</span> <span class="n">n</span> <span class="o">=</span> <span class="n">argsfib</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="n">n</span><span class="o">-&gt;</span><span class="n">setName</span><span class="p">(</span><span class="s">&quot;n&quot;</span><span class="p">);</span>    <span class="c1">// n == NULL</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此段代码非常简单，首先创建一个函数原型<code>int fib(int n)</code>，使用原型创建实例，然后在
+实例中获取第一个参数<code>n</code>。然而执行到注释的语句时会出现空指针错误。</p>
+
+<p>在此处浪费了许多时间，最终发现是由于LLVM版本错乱而引发的问题。我的开发环境是OX X、
+Xcode。此前为了使用iPython安装了Anaconda，它自带了一份LLVM 3.3，并且设置了PATH
+环境变量；而现在换成从Homebrew安装的LLVM 3.4.1，一切就正常了。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[OpenWRT下的GDB远程调试]]></title>
