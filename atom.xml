@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-06-19T22:50:05+08:00</updated>
+  <updated>2014-06-19T23:00:53+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -25,7 +25,7 @@
 <p>采用的调试环境为gdb-server（iOS 7）+ lldb（OS X）。</p>
 
 <p>在iOS SDK中带有debugserver，我们要做的就是把debugserver打补丁，然后复制到iOS下运行。
-这一部分完整的教程参考链接：<a href="http://iphonedevwiki.net/index.php/Debugserver">http://iphonedevwiki.net/index.php/Debugserver</a></p>
+完整的教程参考<a href="http://iphonedevwiki.net/index.php/Debugserver">这个链接</a>。</p>
 
 <ol>
 <li><p>复制debugserver，使用lipo取出合适的部分，例如运行在armv7设备上：</p>
@@ -97,7 +97,7 @@
 
 <h1>LLDB技巧</h1>
 
-<p>初学lldb，可以参考这个文档，记载了gdb命令与lldb命令的对应： <a href="http://lldb.llvm.org/lldb-gdb.html">http://lldb.llvm.org/lldb-gdb.html</a></p>
+<p>初学lldb，可以参考<a href="http://lldb.llvm.org/lldb-gdb.html">这个文档</a>，记载了gdb命令与lldb命令的对应：</p>
 
 <ol>
 <li><p>等待一个进程启动：</p>
