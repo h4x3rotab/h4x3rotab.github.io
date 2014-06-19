@@ -9,8 +9,7 @@
   <meta name="author" content="h4x3rotab">
 
   
-  <meta name="description" content="配置调试环境 采用的调试环境为gdb-server（iOS 7）+ lldb（OS X）。 在iOS SDK中带有debugserver，我们要做的就是把debugserver打补丁，然后复制到iOS下运行。
-这一部分完整的教程参考链接：http://iphonedevwiki.net/index &hellip;">
+  <meta name="description" content="iOS 7中苹果彻底放弃了对gdb的维护，所以必须用C/S模式来调试程序。 配置调试环境 采用的调试环境为gdb-server（iOS 7）+ lldb（OS X）。 在iOS SDK中带有debugserver，我们要做的就是把debugserver打补丁，然后复制到iOS下运行。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,7 +102,9 @@
   </header>
 
 
-<div class="entry-content"><h1>配置调试环境</h1>
+<div class="entry-content"><p>iOS 7中苹果彻底放弃了对gdb的维护，所以必须用C/S模式来调试程序。</p>
+
+<h1>配置调试环境</h1>
 
 <p>采用的调试环境为gdb-server（iOS 7）+ lldb（OS X）。</p>
 
@@ -180,12 +181,7 @@
 
 <h1>LLDB技巧</h1>
 
-<ol>
-<li>初学lldb，可以参考这个文档，记载了gdb命令与lldb命令的对应：</li>
-</ol>
-
-
-<p><a href="http://lldb.llvm.org/lldb-gdb.html">http://lldb.llvm.org/lldb-gdb.html</a></p>
+<p>初学lldb，可以参考这个文档，记载了gdb命令与lldb命令的对应： <a href="http://lldb.llvm.org/lldb-gdb.html">http://lldb.llvm.org/lldb-gdb.html</a></p>
 
 <ol>
 <li><p>等待一个进程启动：</p>

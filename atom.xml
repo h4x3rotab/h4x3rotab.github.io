@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-06-19T22:47:59+08:00</updated>
+  <updated>2014-06-19T22:50:05+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -18,7 +18,9 @@
     <link href="http://h4x3rotab.github.io/blog/2014/06/19/ios-7yue-yu-diao-shi/"/>
     <updated>2014-06-19T22:05:43+08:00</updated>
     <id>http://h4x3rotab.github.io/blog/2014/06/19/ios-7yue-yu-diao-shi</id>
-    <content type="html"><![CDATA[<h1>配置调试环境</h1>
+    <content type="html"><![CDATA[<p>iOS 7中苹果彻底放弃了对gdb的维护，所以必须用C/S模式来调试程序。</p>
+
+<h1>配置调试环境</h1>
 
 <p>采用的调试环境为gdb-server（iOS 7）+ lldb（OS X）。</p>
 
@@ -95,12 +97,7 @@
 
 <h1>LLDB技巧</h1>
 
-<ol>
-<li>初学lldb，可以参考这个文档，记载了gdb命令与lldb命令的对应：</li>
-</ol>
-
-
-<p><a href="http://lldb.llvm.org/lldb-gdb.html">http://lldb.llvm.org/lldb-gdb.html</a></p>
+<p>初学lldb，可以参考这个文档，记载了gdb命令与lldb命令的对应： <a href="http://lldb.llvm.org/lldb-gdb.html">http://lldb.llvm.org/lldb-gdb.html</a></p>
 
 <ol>
 <li><p>等待一个进程启动：</p>
