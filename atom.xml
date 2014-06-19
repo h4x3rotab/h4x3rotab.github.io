@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-06-19T23:00:53+08:00</updated>
+  <updated>2014-06-19T23:01:58+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -99,20 +99,20 @@
 
 <p>初学lldb，可以参考<a href="http://lldb.llvm.org/lldb-gdb.html">这个文档</a>，记载了gdb命令与lldb命令的对应：</p>
 
-<ol>
-<li><p>等待一个进程启动：</p>
+<ul>
+<li><p>等待进程启动</p>
 
-<pre><code> (lldb) process attach --name XXXX --waitfor
+<pre><code>  (lldb) process attach --name XXXX --waitfor
 </code></pre></li>
 <li><p>查询符号表</p>
 
-<pre><code> (lldb) image lookup -s NAME_TO_FIND
+<pre><code>  (lldb) image lookup -s NAME_TO_FIND
 </code></pre></li>
-<li><p>反汇编</p>
+<li><p>反汇编函数</p>
 
-<pre><code> (lldb) disassemble -n FUNCTION_NAME
+<pre><code>  (lldb) disassemble -n FUNCTION_NAME
 </code></pre></li>
-</ol>
+</ul>
 
 
 <p>可能还会陆续更新（？）</p>
