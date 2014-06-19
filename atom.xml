@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-06-19T22:45:01+08:00</updated>
+  <updated>2014-06-19T22:46:43+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -26,8 +26,10 @@
 这一部分完整的教程参考链接：<a href="http://iphonedevwiki.net/index.php/Debugserver">http://iphonedevwiki.net/index.php/Debugserver</a></p>
 
 <ol>
-<li><p>复制debugserver，使用lipo取出合适的部分，例如运行在armv7设备上：
-     lipo -thin armv7 debugserver -output dbgserverv7</p></li>
+<li><p>复制debugserver，使用lipo取出合适的部分，例如运行在armv7设备上：</p>
+
+<pre><code> lipo -thin armv7 debugserver -output dbgserverv7
+</code></pre></li>
 <li><p>把以下文件保存为ent.xml，下一步ldid会用到它为文件添加权限位：</p></li>
 </ol>
 
@@ -62,8 +64,10 @@
 
 
 <ol>
-<li><p>用ldid进行伪签名，ldid可以用brew安装：
-     ldid -Sent.xml dbgserverv7</p></li>
+<li><p>用ldid进行伪签名，ldid可以用brew安装：</p>
+
+<pre><code> ldid -Sent.xml dbgserverv7
+</code></pre></li>
 <li><p>把dbgserverv7用任何办法复制到iOS设备上，准备部分就完成了。</p></li>
 </ol>
 
@@ -73,13 +77,17 @@
 <p>基本思路是在iOS下运行dbgserver，然后在OS X下运行lldb，连接至iOS。</p>
 
 <ol>
-<li><p>在iOS下执行服务器端，在这里监听了端口：
-     dbgserverv7 0.0.0.0:8888</p></li>
+<li><p>在iOS下执行服务器端，在这里监听了端口：</p>
+
+<pre><code> dbgserverv7 0.0.0.0:8888
+</code></pre></li>
 <li><p>把调试的文件从iOS复制到OS X下，以便lldb载入。当然，如果调试的自己的程序，有了符号表
 就可以省略这个步骤了，lldb会自动找到源码。</p></li>
-<li><p>在OS X下运行lldb，其实gdb也是可以的。然后在lldb中使用gdb-server命令连接调试服务器：
-     lldb
-     (lldb) gdb-server 192.168.1.11:8888</p></li>
+<li><p>在OS X下运行lldb，其实gdb也是可以的。然后在lldb中使用gdb-server命令连接调试服务器：</p>
+
+<pre><code> lldb
+ (lldb) gdb-server 192.168.1.11:8888
+</code></pre></li>
 </ol>
 
 
@@ -88,14 +96,22 @@
 <h1>LLDB技巧</h1>
 
 <ol>
-<li><p>初学lldb，可以参考这个文档，记载了gdb命令与lldb命令的对应：
-     <a href="http://lldb.llvm.org/lldb-gdb.html">http://lldb.llvm.org/lldb-gdb.html</a></p></li>
-<li><p>等待一个进程启动：
-     (lldb) process attach &mdash;name XXXX &mdash;waitfor</p></li>
-<li><p>查询符号表
-     (lldb) image lookup -s NAME_TO_FIND</p></li>
-<li><p>反汇编
-     (lldb) disassemble -n FUNCTION_NAME</p></li>
+<li><p>初学lldb，可以参考这个文档，记载了gdb命令与lldb命令的对应：</p>
+
+<pre><code> &lt;http://lldb.llvm.org/lldb-gdb.html&gt;
+</code></pre></li>
+<li><p>等待一个进程启动：</p>
+
+<pre><code> (lldb) process attach --name XXXX --waitfor
+</code></pre></li>
+<li><p>查询符号表</p>
+
+<pre><code> (lldb) image lookup -s NAME_TO_FIND
+</code></pre></li>
+<li><p>反汇编</p>
+
+<pre><code> (lldb) disassemble -n FUNCTION_NAME
+</code></pre></li>
 </ol>
 
 
