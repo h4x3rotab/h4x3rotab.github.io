@@ -9,13 +9,8 @@
   <meta name="author" content="h4x3rotab">
 
   
-  <meta name="description" content="LLVM提供了编译器基础设施，根据语法树可以方便的生成LLVM IR，然后编译成可执行文件。 然而在尝试创建一个函数时，发现无法获取函数参数值。代码如下： 1
-2
-3
-4
-5
-6
-auto t_fib = FunctionType::get(t_int, t_fibargs, false); &hellip;">
+  <meta name="description" content="配置调试环境 采用的调试环境为gdb-server（iOS 7）+ lldb（OS X）。 在iOS SDK中带有debugserver，我们要做的就是把debugserver打补丁，然后复制到iOS下运行。
+这一部分完整的教程参考链接：http://iphonedevwiki.net/index &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +77,123 @@ auto t_fib = FunctionType::get(t_int, t_fibargs, false); &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/19/ios-7yue-yu-diao-shi/">iOS 7越狱调试</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-19T22:05:43+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>配置调试环境</h1>
+
+<p>采用的调试环境为gdb-server（iOS 7）+ lldb（OS X）。</p>
+
+<p>在iOS SDK中带有debugserver，我们要做的就是把debugserver打补丁，然后复制到iOS下运行。
+这一部分完整的教程参考链接：<a href="http://iphonedevwiki.net/index.php/Debugserver">http://iphonedevwiki.net/index.php/Debugserver</a></p>
+
+<ol>
+<li><p>复制debugserver，使用lipo取出合适的部分，例如运行在armv7设备上：
+     lipo -thin armv7 debugserver -output dbgserverv7</p></li>
+<li><p>把以下文件保存为ent.xml，下一步ldid会用到它为文件添加权限位：</p></li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
+</span><span class='line'><span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>com.apple.springboard.debugapplications<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;true/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>get-task-allow<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;true/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>task_for_pid-allow<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;true/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>run-unsigned-code<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;true/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'><span class="nt">&lt;/plist&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li><p>用ldid进行伪签名，ldid可以用brew安装：
+     ldid -Sent.xml dbgserverv7</p></li>
+<li><p>把dbgserverv7用任何办法复制到iOS设备上，准备部分就完成了。</p></li>
+</ol>
+
+
+<h1>启动调试</h1>
+
+<p>基本思路是在iOS下运行dbgserver，然后在OS X下运行lldb，连接至iOS。</p>
+
+<ol>
+<li><p>在iOS下执行服务器端，在这里监听了端口：
+     dbgserverv7 0.0.0.0:8888</p></li>
+<li><p>把调试的文件从iOS复制到OS X下，以便lldb载入。当然，如果调试的自己的程序，有了符号表
+就可以省略这个步骤了，lldb会自动找到源码。</p></li>
+<li><p>在OS X下运行lldb，其实gdb也是可以的。然后在lldb中使用gdb-server命令连接调试服务器：
+     lldb
+     (lldb) gdb-server 192.168.1.11:8888</p></li>
+</ol>
+
+
+<p>如果没有错误信息，连接就成功建立了。</p>
+
+<h1>LLDB技巧</h1>
+
+<ol>
+<li><p>初学lldb，可以参考这个文档，记载了gdb命令与lldb命令的对应：
+     <a href="http://lldb.llvm.org/lldb-gdb.html">http://lldb.llvm.org/lldb-gdb.html</a></p></li>
+<li><p>等待一个进程启动：
+     (lldb) process attach &mdash;name XXXX &mdash;waitfor</p></li>
+<li><p>查询符号表
+     (lldb) image lookup -s NAME_TO_FIND</p></li>
+<li><p>反汇编
+     (lldb) disassemble -n FUNCTION_NAME</p></li>
+</ol>
+
+
+<p>可能还会陆续更新（？）</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -679,6 +791,10 @@ OS X下都有驱动:
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/19/ios-7yue-yu-diao-shi/">iOS 7越狱调试</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/14/you-llvmban-ben-yin-fa-de-gui-yi-wen-ti/">由LLVM版本引发的诡异问题</a>
       </li>
     
@@ -692,10 +808,6 @@ OS X下都有驱动:
     
       <li class="post">
         <a href="/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/">OS X下搭建OpenWRT开发环境</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/">用Keil调试节省时间</a>
       </li>
     
   </ul>
