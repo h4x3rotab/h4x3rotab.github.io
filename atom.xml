@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-07-24T11:26:43+08:00</updated>
+  <updated>2014-07-24T11:28:36+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -19,9 +19,13 @@
     <updated>2014-07-24T11:20:34+08:00</updated>
     <id>http://h4x3rotab.github.io/blog/2014/07/24/com-dot-android-dot-support-appcompatcuo-wu</id>
     <content type="html"><![CDATA[<p>使用Intellij IDEA创建Android项目，编译时提示“compile &lsquo;com.android.support:appcompat-v7:19.+&#8217;”错误，
-解决方法是运行Android SDK Manager，勾选：
-* Android Support Repository
-* Android Support Library</p>
+解决方法是运行Android SDK Manager，勾选：</p>
+
+<ul>
+<li><p>Android Support Repository</p></li>
+<li><p>Android Support Library</p></li>
+</ul>
+
 
 <p>重新打开项目编译，问题解决。</p>
 
