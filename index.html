@@ -9,7 +9,9 @@
   <meta name="author" content="h4x3rotab">
 
   
-  <meta name="description" content="iOS 7中苹果彻底放弃了对gdb的维护，所以必须用C/S模式来调试程序。 配置调试环境 采用的调试环境为gdb-server（iOS 7）+ lldb（OS X）。 在iOS SDK中带有debugserver，我们要做的就是把debugserver打补丁，然后复制到iOS下运行。 &hellip;">
+  <meta name="description" content="使用Intellij IDEA创建Android项目，编译时提示“compile &lsquo;com.android.support:appcompat-v7:19.+&#8217;”错误，
+解决方法是运行Android SDK Manager，勾选：
+* Android Support &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +78,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/24/com-dot-android-dot-support-appcompatcuo-wu/">com.android.support:appcompat错误</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-24T11:20:34+08:00" pubdate data-updated="true">Jul 24<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>使用Intellij IDEA创建Android项目，编译时提示“compile &lsquo;com.android.support:appcompat-v7:19.+&#8217;”错误，
+解决方法是运行Android SDK Manager，勾选：
+* Android Support Repository
+* Android Support Library</p>
+
+<p>重新打开项目编译，问题解决。</p>
+
+<p>参见：<a href="http://stackoverflow.com/questions/18045712/gradle-build-android-project-could-not-resolve-all-dependencies-error-but-i-t">http://stackoverflow.com/questions/18045712/gradle-build-android-project-could-not-resolve-all-dependencies-error-but-i-t</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -790,6 +835,10 @@ OS X下都有驱动:
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/24/com-dot-android-dot-support-appcompatcuo-wu/">com.android.support:appcompat错误</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/19/ios-7yue-yu-diao-shi/">iOS 7越狱调试</a>
       </li>
     
@@ -803,10 +852,6 @@ OS X下都有驱动:
     
       <li class="post">
         <a href="/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/">Xcode下创建OpenWRT交叉编译项目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/">OS X下搭建OpenWRT开发环境</a>
       </li>
     
   </ul>

@@ -5,13 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>OpenWRT下的GDB远程调试 - h4x's memo</title>
+  <title>com.android.support:appcompat错误 - h4x's memo</title>
   <meta name="author" content="h4x3rotab">
 
   
-  <meta name="description" content="编写的程序部署到OpenWRT上出错，打日志是一个好办法，但是今天遇到的情况，日志也不能
-显示出正确的程序流程，实在诡异，因此决定尝试调试器。 路由器中的存储空间十分有限，OpenWRT的包管理器opkg提供的GDB占用大约1.5MB空间。路由器
-本身有8M的存储空间，目前只剩200KB了， &hellip;">
+  <meta name="description" content="使用Intellij IDEA创建Android项目，编译时提示“compile &lsquo;com.android.support:appcompat-v7:19.+&#8217;”错误，
+解决方法是运行Android SDK Manager，勾选：
+* Android Support &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://h4x3rotab.github.io/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi/">
+  <link rel="canonical" href="http://h4x3rotab.github.io/blog/2014/07/24/com-dot-android-dot-support-appcompatcuo-wu/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -81,7 +81,7 @@
   
   <header>
     
-      <h1 class="entry-title">OpenWRT下的GDB远程调试</h1>
+      <h1 class="entry-title">com.android.support:appcompat错误</h1>
     
     
       <p class="meta">
@@ -97,59 +97,21 @@
   
 
 
-<time datetime="2014-02-27T02:17:35+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2014</time>
+<time datetime="2014-07-24T11:20:34+08:00" pubdate data-updated="true">Jul 24<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>编写的程序部署到OpenWRT上出错，打日志是一个好办法，但是今天遇到的情况，日志也不能
-显示出正确的程序流程，实在诡异，因此决定尝试调试器。</p>
+<div class="entry-content"><p>使用Intellij IDEA创建Android项目，编译时提示“compile &lsquo;com.android.support:appcompat-v7:19.+&#8217;”错误，
+解决方法是运行Android SDK Manager，勾选：
+* Android Support Repository
+* Android Support Library</p>
 
-<p>路由器中的存储空间十分有限，OpenWRT的包管理器opkg提供的GDB占用大约1.5MB空间。路由器
-本身有8M的存储空间，目前只剩200KB了，GDB的大小不能接受。相比之下，GDBServer的大小
-不到100KB，这是可以接受的。</p>
+<p>重新打开项目编译，问题解决。</p>
 
-<p>下面是使用GDBServer远程调试的方法：</p>
-
-<ul>
-<li><p>路由器端</p>
-
-<ol>
-<li><p> 安装GDBServer</p>
-
-<pre><code>  opkg install gdbserver
-</code></pre></li>
-<li><p> 进入目录，运行GDBServer，监听到网络端口</p>
-
-<pre><code>  gdbserver 192.168.8.1:4455 tubed
-</code></pre></li>
-</ol>
-</li>
-<li><p>计算机端</p>
-
-<ol>
-<li><p> 根据OpenWRT SDK的位置设置环境变量</p></li>
-<li><p> 进入被调试文件的所在目录，这是为了向GDB提供程序的调试信息</p></li>
-<li><p> 指定被调试的程序文件，启动gdb</p>
-
-<pre><code>  mips-openwrt-linux-gdb tubed
-</code></pre></li>
-<li><p> 在GDB中连接远程调试器</p>
-
-<pre><code>  target remote 192.168.8.1:4455
-</code></pre></li>
-</ol>
-</li>
-</ul>
-
-
-<p>如果连接成功，则此时就可以像平常一样使用GDB来调试程序了，不过调试目标是位于路由器的
-程序。使用这个方法可以很轻易的定位到程序错误的位置。毕竟是动态调试。话说回来，既然
-可以做到GDB远程调试，也许可以把部署、调试的环节通过Makefile整合到Xcode项目中来？</p>
-
-<p>有空可以试一下看看。</p>
+<p>参见：<a href="http://stackoverflow.com/questions/18045712/gradle-build-android-project-could-not-resolve-all-dependencies-error-but-i-t">http://stackoverflow.com/questions/18045712/gradle-build-android-project-could-not-resolve-all-dependencies-error-but-i-t</a></p>
 </div>
 
 
@@ -172,7 +134,7 @@
   
 
 
-<time datetime="2014-02-27T02:17:35+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2014</time>
+<time datetime="2014-07-24T11:20:34+08:00" pubdate data-updated="true">Jul 24<span>th</span>, 2014</time>
       
 
 
@@ -180,7 +142,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://h4x3rotab.github.io/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi/" data-via="" data-counturl="http://h4x3rotab.github.io/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://h4x3rotab.github.io/blog/2014/07/24/com-dot-android-dot-support-appcompatcuo-wu/" data-via="" data-counturl="http://h4x3rotab.github.io/blog/2014/07/24/com-dot-android-dot-support-appcompatcuo-wu/" >Tweet</a>
   
   
   
@@ -189,10 +151,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/" title="Previous Post: Xcode下创建OpenWRT交叉编译项目">&laquo; Xcode下创建OpenWRT交叉编译项目</a>
+        <a class="basic-alignment left" href="/blog/2014/06/19/ios-7yue-yu-diao-shi/" title="Previous Post: iOS 7越狱调试">&laquo; iOS 7越狱调试</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/06/14/you-llvmban-ben-yin-fa-de-gui-yi-wen-ti/" title="Next Post: 由LLVM版本引发的诡异问题">由LLVM版本引发的诡异问题 &raquo;</a>
       
     </p>
   </footer>
