@@ -1,110 +1,85 @@
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>用Keil调试节省时间 - h4x's memo</title>
-  <meta name="author" content="h4x3rotab">
+	<meta charset="utf-8">
+	<title>用Keil调试节省时间 - h4x's memo</title>
+	<meta name="author" content="h4x3rotab">
 
-  
-  <meta name="description" content="对单片机开发还不熟练，经常会写出bug，但是PCB上面总是插拔各种线比较麻烦。这次串口协议
+	
+	<meta name="description" content="对单片机开发还不熟练，经常会写出bug，但是PCB上面总是插拔各种线比较麻烦。这次串口协议
 出了问题，发现Keil的仿真器支持模拟串口的功能，在仿真器里调试就方便多了。 打开串口面板，在内部按下的按键就会发送到单片机，不过还不知道怎么直接发送16进制数据。
 此外，虽然Keil支持串口调试， &hellip;">
-  
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="h4x's memo" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-39767786-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
+	<link href="/atom.xml" rel="alternate" title="h4x's memo" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
 </head>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">h4x's memo</a></h1>
-  
-    <h2>某不科学的备忘录</h2>
-  
-</hgroup>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">h4x's memo</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:h4x3rotab.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/h4x3rotab" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:h4x3rotab.github.io">
+	</form>
+</nav>
 
 </header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:h4x3rotab.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">用Keil调试节省时间</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-04T02:43:50+08:00" pubdate data-updated="true">Feb 4<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>对单片机开发还不熟练，经常会写出bug，但是PCB上面总是插拔各种线比较麻烦。这次串口协议
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">用Keil调试节省时间</h2>
+	<div class="entry-content"><p>对单片机开发还不熟练，经常会写出bug，但是PCB上面总是插拔各种线比较麻烦。这次串口协议
 出了问题，发现Keil的仿真器支持模拟串口的功能，在仿真器里调试就方便多了。</p>
 
 <p>打开串口面板，在内部按下的按键就会发送到单片机，不过还不知道怎么直接发送16进制数据。
@@ -112,14 +87,8 @@
 </div>
 
 
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">h4x3rotab</span></span>
-
-      
+<div class="meta">
+	<div class="date">
 
 
 
@@ -131,129 +100,79 @@
   
 
 
-<time datetime="2014-02-04T02:43:50+08:00" pubdate data-updated="true">Feb 4<span>th</span>, 2014</time>
-      
+<time datetime="2014-02-04T02:43:50+08:00" pubdate data-updated="true">Feb 4<span>th</span>, 2014</time></div>
+	<div class="tags">
 
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/" data-via="" data-counturl="http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/" >Tweet</a>
-  
-  
-  
 </div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/01/31/os-xxia-de-usbzhuan-uart/" title="Previous Post: OS X下的USB转串口方案">&laquo; OS X下的USB转串口方案</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/" title="Next Post: OS X下搭建OpenWRT开发环境">OS X下搭建OpenWRT开发环境 &raquo;</a>
-      
-    </p>
-  </footer>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
 </article>
 
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
 </div>
 
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2014/07/24/com-dot-android-dot-support-appcompatcuo-wu/">com.android.support:appcompat错误</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/19/ios-7yue-yu-diao-shi/">iOS 7越狱调试</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/14/you-llvmban-ben-yin-fa-de-gui-yi-wen-ti/">由LLVM版本引发的诡异问题</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi/">OpenWRT下的GDB远程调试</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/">Xcode下创建OpenWRT交叉编译项目</a>
-      </li>
-    
-  </ul>
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
 </section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
 
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/h4x3rotab">@h4x3rotab</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'h4x3rotab',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - h4x3rotab -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-  - <span class="credit">Theme by <a href="http://www.gehaxelt.in">Gehaxelt</a></span>
-  <span class="credit">and <a href="http://www.it-solutions-neef.de">IT Solutions Neef</a></span>
-</p>
+    h4x3rotab
 
 </footer>
-  
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'h4xmemo';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/';
+        var disqus_url = 'http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-39767786-2']);
+		_gaq.push(['_trackPageview']);
 
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 
 
 

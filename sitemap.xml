@@ -2,59 +2,65 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://h4x3rotab.github.io/blog/2014/01/31/init/</loc>
-        <lastmod>2014-03-04T00:35:00+08:00</lastmod>
+        <lastmod>2014-12-05T08:07:27+08:00</lastmod>
     </url>
     <url>
         <loc>http://h4x3rotab.github.io/blog/2014/01/31/os-xxia-de-usbzhuan-uart/</loc>
-        <lastmod>2014-03-04T00:35:00+08:00</lastmod>
+        <lastmod>2014-12-05T08:07:27+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://h4x3rotab.github.io/blog/2014/02/04/yong-keildiao-shi-jie-sheng-shi-jian/
         </loc>
-        <lastmod>2014-03-04T00:35:00+08:00</lastmod>
+        <lastmod>2014-12-05T08:07:27+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://h4x3rotab.github.io/blog/2014/02/05/os-xxia-da-jian-openwrtkai-fa-huan-jing/
         </loc>
-        <lastmod>2014-03-04T00:35:00+08:00</lastmod>
+        <lastmod>2014-12-05T08:07:27+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://h4x3rotab.github.io/blog/2014/02/25/xcodexia-chuang-jian-openwrtjiao-cha-bian-yi-xiang-mu/
         </loc>
-        <lastmod>2014-03-04T00:35:00+08:00</lastmod>
+        <lastmod>2014-12-05T08:07:27+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://h4x3rotab.github.io/blog/2014/02/27/openwrtxia-de-gdbyuan-cheng-diao-shi/
         </loc>
-        <lastmod>2014-03-04T00:35:00+08:00</lastmod>
+        <lastmod>2014-12-05T08:07:27+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://h4x3rotab.github.io/blog/2014/06/14/you-llvmban-ben-yin-fa-de-gui-yi-wen-ti/
         </loc>
-        <lastmod>2014-06-14T05:08:22+08:00</lastmod>
+        <lastmod>2014-12-05T08:07:27+08:00</lastmod>
     </url>
     <url>
         <loc>http://h4x3rotab.github.io/blog/2014/06/19/ios-7yue-yu-diao-shi/</loc>
-        <lastmod>2014-06-22T20:37:29+08:00</lastmod>
+        <lastmod>2014-12-05T08:07:27+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://h4x3rotab.github.io/blog/2014/07/24/com-dot-android-dot-support-appcompatcuo-wu/
         </loc>
-        <lastmod>2014-07-24T11:28:30+08:00</lastmod>
+        <lastmod>2014-12-05T08:07:27+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://h4x3rotab.github.io/blog/2014/12/05/os-xxia-da-jian-xu-ni-hadoop-2-dot-5kai-fa-huan-jing/
+        </loc>
+        <lastmod>2014-12-05T08:14:54+08:00</lastmod>
     </url>
     <url>
         <loc>http://h4x3rotab.github.io/blog/archives/</loc>
-        <lastmod>2014-07-24T11:28:30+08:00</lastmod>
+        <lastmod>2014-12-05T08:14:54+08:00</lastmod>
     </url>
     <url>
         <loc>http://h4x3rotab.github.io/</loc>
-        <lastmod>2014-07-24T11:28:30+08:00</lastmod>
+        <lastmod>2014-12-05T08:14:54+08:00</lastmod>
     </url>
     <url>
         <loc>http://h4x3rotab.github.io/robots.txt</loc>
