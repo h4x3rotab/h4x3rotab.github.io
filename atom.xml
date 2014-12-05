@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-12-05T08:31:49+08:00</updated>
+  <updated>2014-12-05T08:36:22+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -246,8 +246,9 @@ hadoop fs -help
 </code></pre></li>
 <li><p>把以下文件保存为ent.xml，下一步ldid会用到它为文件添加权限位：</p>
 
-<pre><code> ```xml
- &lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+<p> <!-- language: lang-xml --></p>
+
+<pre><code> &lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
  &lt;plist version="1.0"&gt;
  &lt;dict&gt;
      &lt;key&gt;com.apple.springboard.debugapplications&lt;/key&gt;
@@ -260,7 +261,6 @@ hadoop fs -help
      &lt;true/&gt;
  &lt;/dict&gt;
  &lt;/plist&gt;
- ```
 </code></pre></li>
 <li><p>用ldid进行伪签名，ldid可以用brew安装：</p>
 
