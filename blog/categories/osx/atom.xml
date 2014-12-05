@@ -1,85 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>OS X下搭建虚拟Hadoop 2.5开发环境 - h4x's memo</title>
-	<meta name="author" content="h4x3rotab">
+  <title><![CDATA[Category: osx | h4x's memo]]></title>
+  <link href="http://h4x3rotab.github.io/blog/categories/osx/atom.xml" rel="self"/>
+  <link href="http://h4x3rotab.github.io/"/>
+  <updated>2014-12-05T08:38:36+08:00</updated>
+  <id>http://h4x3rotab.github.io/</id>
+  <author>
+    <name><![CDATA[h4x3rotab]]></name>
+    <email><![CDATA[h4x3rotab@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
-	
-	<meta name="description" content="在此记录OS X下搭建虚拟Hadoop 2.5开发环境，这包括了： Hadoop 2.5的安装、配置
-访问Hadoop文件系统和运行样例
-Intellij IDEA中创建Hadoop依赖的项目 注意，OS X并不被Hadoop官方支持，因此仅可作为开发环境。 0. 基本配置 OS X &hellip;">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<link href="/atom.xml" rel="alternate" title="h4x's memo" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.png" rel="shortcut icon">
-	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
-</head>
-
-
-<body>
-	<header id="header" class="inner"><h1><a href="/">h4x's memo</a></h1>
-<nav id="main-nav"><ul class="main">
-	<li><a href="/">Blog</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-</ul>
-</nav>
-<nav id="mobile-nav">
-	<div class="alignleft menu">
-		<a class="button">Menu</a>
-		<div class="container"><ul class="main">
-	<li><a href="/">Blog</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-</ul>
-</div>
-	</div>
-	<div class="alignright search">
-		<a class="button"></a>
-		<div class="container">
-			<form action="http://google.com/search" method="get">
-				<input type="text" name="q" results="0">
-				<input type="hidden" name="q" value="site:h4x3rotab.github.io">
-			</form>
-		</div>
-	</div>
-</nav>
-<nav id="sub-nav" class="alignright">
-	<div class="social">
-		
-		
-		
-		
-		<a class="github" href="https://github.com/h4x3rotab" title="GitHub">GitHub</a>
-		
-    
-		
-		
-		
-		
-		
-		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
-		
-    
-	</div>
-	<form class="search" action="http://google.com/search" method="get">
-		<input class="alignright" type="text" name="q" results="0">
-		<input type="hidden" name="q" value="site:h4x3rotab.github.io">
-	</form>
-</nav>
-
-</header>
-	
-		
-	
-	<div id="content" class="inner"><article class="post">
-	<h2 class="title">OS X下搭建虚拟Hadoop 2.5开发环境</h2>
-	<div class="entry-content"><p>在此记录OS X下搭建虚拟Hadoop 2.5开发环境，这包括了：</p>
+  
+  <entry>
+    <title type="html"><![CDATA[OS X下搭建虚拟Hadoop 2.5开发环境]]></title>
+    <link href="http://h4x3rotab.github.io/blog/2014/12/05/os-xxia-da-jian-xu-ni-hadoop-2-dot-5kai-fa-huan-jing/"/>
+    <updated>2014-12-05T07:00:31+08:00</updated>
+    <id>http://h4x3rotab.github.io/blog/2014/12/05/os-xxia-da-jian-xu-ni-hadoop-2-dot-5kai-fa-huan-jing</id>
+    <content type="html"><![CDATA[<p>在此记录OS X下搭建虚拟Hadoop 2.5开发环境，这包括了：</p>
 
 <ol>
 <li>Hadoop 2.5的安装、配置</li>
@@ -251,113 +190,19 @@ hadoop fs -help
 <code>+</code> &ndash; <code>Library...</code> &ndash; <code>Java</code></p></li>
 <li><p>选择<code>/usr/local/Cellar/hadoop/2.5.2/libexec/share/hadoop</code>
 目录下除了<code>httpfs</code>外的全部文件夹。</p></li>
-<li><p><code>Name</code>可以随便写，例如&#8221;common&#8221;，OK。</p></li>
+<li><p><code>Name</code>可以随便写，例如"common"，OK。</p></li>
 <li><p><code>+</code> &ndash; <code>Jars or directories...</code></p></li>
 <li><p>选择<code>/usr/local/Cellar/hadoop/2.5.2/libexec/share/hadoop/common/lib</code></p></li>
 </ol>
 
 
-<p> 此时<code>Dependencies</code>内应该总共增加了一个&#8221;common&#8221;和一个&#8221;lib&#8221;目录。</p></li>
+<p> 此时<code>Dependencies</code>内应该总共增加了一个"common"和一个"lib"目录。</p></li>
 <li><p>修改<code>Project Structure</code>中的<code>Artifacts</code>，增加Jar包的生成配置。</p></li>
 </ol>
 
 
 <p>可以写代码编译打包了。</p>
-</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2014-12-05T07:00:31+08:00" pubdate data-updated="true">Dec 5<span>th</span>, 2014</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/osx/'>osx</a>
-
-
-</div>
-	
-	<div class="comments"><a href="#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-	<div class="share">
-	<div class="addthis_toolbox addthis_default_style ">
-		
-		
-		<a class="addthis_button_tweet"></a>
-		
-		
-		
-	</div>
-	
-</div>
-
-
-
-<section id="comment">
-    <h2 class="title">Comments</h2>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-</section>
-</div>
-	<footer id="footer" class="inner">Copyright &copy; 2014
-
-    h4x3rotab
-
-</footer>
-	<script src="/javascripts/slash.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
-
-
-<script type="text/javascript">
-      var disqus_shortname = 'h4xmemo';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://h4x3rotab.github.io/blog/2014/12/05/os-xxia-da-jian-xu-ni-hadoop-2-dot-5kai-fa-huan-jing/';
-        var disqus_url = 'http://h4x3rotab.github.io/blog/2014/12/05/os-xxia-da-jian-xu-ni-hadoop-2-dot-5kai-fa-huan-jing/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//go.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-39767786-2']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
-
-
-
-</body>
-</html>
+</feed>
