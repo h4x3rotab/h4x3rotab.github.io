@@ -4,7 +4,7 @@
   <title><![CDATA[h4x's memo]]></title>
   <link href="http://h4x3rotab.github.io/atom.xml" rel="self"/>
   <link href="http://h4x3rotab.github.io/"/>
-  <updated>2014-12-05T08:38:36+08:00</updated>
+  <updated>2015-01-10T13:27:16+08:00</updated>
   <id>http://h4x3rotab.github.io/</id>
   <author>
     <name><![CDATA[h4x3rotab]]></name>
@@ -342,7 +342,7 @@ hadoop fs -help
 <p>此段代码非常简单，首先创建一个函数原型<code>int fib(int n)</code>，使用原型创建实例，然后在
 实例中获取第一个参数<code>n</code>。然而执行到注释的语句时会出现空指针错误。</p>
 
-<p>在此处浪费了许多时间，最终发现是由于LLVM版本错乱而引发的问题。我的开发环境是OX X、
+<p>在此处浪费了许多时间，最终发现是由于LLVM版本错乱而引发的问题。我的开发环境是OS X、
 Xcode。此前为了使用iPython安装了Anaconda，它自带了一份LLVM 3.3，并且设置了PATH
 环境变量；而现在换成从Homebrew安装的LLVM 3.4.1，一切就正常了。</p>
 ]]></content>
