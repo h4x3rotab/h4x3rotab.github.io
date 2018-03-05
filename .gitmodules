@@ -1,0 +1,3 @@
+[submodule "coinbin"]
+	path = coinbin
+	url = https://github.com/h4x3rotab/coinbin.git
